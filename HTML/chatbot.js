@@ -2,51 +2,33 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     // 初始化 LIFF
-    initializeLiff();
-});
-
-function initializeLiff() {
     liff.init({
-        liffId: '2001879251-zOk9bLB8' // 請替換為您的 LIFF ID
+        liffId: '2001879251-zOk9bLB8'
     })
     .then(() => {
+        console.log('LIFF initialized');
+        // LIFF 初始化成功後的其他初始化邏輯
         if (liff.isLoggedIn()) {
-            // LIFF 初始化成功且用戶已登入
+            // 用戶已登入，執行相關邏輯
             initializeApp();
         } else {
-            // 用戶尚未登入，顯示登入按鈕
-            liff.login();
+            // 用戶尚未登入，您可以顯示登入按鈕或進行其他處理
         }
     })
     .catch((err) => {
         console.error(err);
     });
-}
+});
 
 function initializeApp() {
-    // 用戶已登入，為按鈕添加點擊事件
-    document.getElementById('sendMessageButton').addEventListener('click', function () {
-        // 設定要發送的消息
-        var message = {
-            text: 'Hello, Line Bot!'
-        };
+    // 在這裡可以執行用戶已登入時的其他初始化邏輯
+    // 例如綁定按鈕點擊事件等
 
-        // 使用 fetch 發送 POST 請求到 Line Bot Webhook
-        fetch('https://3511-123-240-92-160.ngrok-free.app', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(message),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Line Bot Response:', data);
-            // 在 LIFF 中顯示 Line Bot 的回應
-            alert('Line Bot Response: ' + JSON.stringify(data));
-        })
-        .catch(error => {
-            console.error('Error sending message to Line Bot:', error);
+    // 監聽按鈕點擊事件
+    document.getElementById('openChatButton').addEventListener('click', function () {
+        // 使用 liff.openWindow 打開 Line Bot 聊天畫面
+        liff.openWindow({
+            url: 'line://app/@355gslah' // 替換為您的 Line Bot ID
         });
     });
 }
