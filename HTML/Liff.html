@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Line Bot Webpage</title>
+    <style>
+        #dialogue {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>機器人</h1>
+
+    <div id="dialogue"></div>
 
     <form id="messageForm">
         <label for="message">Enter Message:</label>
@@ -14,14 +26,15 @@
         <button type="submit">Send</button>
     </form>
 
-    <div id="response"></div>
-
     <script>
         document.getElementById('messageForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             // Get the user's message
             var userMessage = document.getElementById('message').value;
+
+            // Display user's message in the dialogue
+            displayMessage('User', userMessage);
 
             // Send the message to Line Bot (replace with your Line Bot API endpoint)
             var apiUrl = 'https://3511-123-240-92-160.ngrok-free.app'; // Replace with your Line Bot API endpoint
@@ -40,12 +53,23 @@
             .then(response => response.json())
             .then(data => {
                 // Display the response from Line Bot
-                document.getElementById('response').innerText = 'Bot Response: ' + data.message;
+                displayMessage('Bot', data.message);
             })
             .catch(error => {
                 console.error('Error sending message to Line Bot:', error);
             });
+
+            // Clear the input field
+            document.getElementById('message').value = '';
         });
+
+        function displayMessage(sender, message) {
+            // Display messages in the dialogue
+            var dialogueDiv = document.getElementById('dialogue');
+            dialogueDiv.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
+            // Scroll to the bottom to show the latest message
+            dialogueDiv.scrollTop = dialogueDiv.scrollHeight;
+        }
     </script>
 </body>
 </html>
