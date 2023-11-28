@@ -1,44 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Line Bot Chat</title>
-    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
     <h1>Line Bot Chat</h1>
-
-    <div id="liffContainer"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            initializeLiff();
-        });
-
-        function initializeLiff() {
-            liff.init({
-                liffId: 'https://liff.line.me/1645278921-kWRPP32q/?accountId=355gslah' // 請替換為您的 LIFF ID
-            }).then(() => {
-                if (liff.isLoggedIn()) {
-                    initializeApp();
-                } else {
-                    liff.login();
-                }
-            }).catch((err) => {
-                console.error('LIFF initialization failed', err);
-            });
-        }
-
-        function initializeApp() {
-            // 在這裡加載 Line Bot 的聊天界面
-            const chatContainer = document.getElementById('liffContainer');
-            liff.getProfile().then(profile => {
-                chatContainer.innerHTML = `<div>Hello ${profile.displayName}!</div>`;
-            }).catch(err => {
-                console.error('Error getting profile:', err);
-            });
-        }
-    </script>
+    <iframe src="https://liff.line.me/2001879251-zOk9bLB8" width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
 </body>
 </html>
