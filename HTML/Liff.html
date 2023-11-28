@@ -1,65 +1,44 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>LINE Bot</title>
-</head>
-<body>
-  <h1>HI</h1>
-  <div id="conversation"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/line-bot-sdk@2.4.0/dist/line-bot-sdk.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // 定義 LINE Bot 的 Channel Access Token
-      const channelAccessToken = '/sjWWuRh9ezGl2wedIw4o9T3UBjkikGONVoswIpI0Xy7DHUFTIv0DGn9q8Qd2EC40/onNR1/0qSNHM8yTjIE3OTrXlojPEY8HDy/0poZjMn6aHSrNIrWUwRG067r0VHYefas0iw3EvFUXKbdWKVRwgdB04t89/1O/w1cDnyilFU=';
-
-      // 初始化 LINE Bot 用戶端
-      const line = new LineBot({
-        channelAccessToken: channelAccessToken
-      });
-
-      // 在網頁上顯示 LINE Bot 的回應
-      function displayResponse(response) {
-        // 假設有一個 id 為 'conversation' 的元素用於顯示對話
-        const conversationElement = document.getElementById('conversation');
-        const messageElement = document.createElement('p');
-        messageElement.textContent = 'LINE Bot: ' + response;
-        conversationElement.appendChild(messageElement);
-      }
-
-      // 函數：發送消息給 LINE Bot
-      function sendMessageToLineBot(message) {
-        // 使用 line.emit 方法發送消息
-        line.emit('message', { message: { text: message } });
-      }
-
-      // 簡單的範例：在頁面載入時發送一條初始消息
-      sendMessageToLineBot('Hello, this is a message from the web page!');
-
-      // 監聽消息事件
-      line.on('message', function(event) {
-        console.log(event);
-
-        // 在網頁上顯示 LINE Bot 的回應
-        displayResponse(event.message.text);
-      });
-
-      // 在這裡添加與用戶交互的其他邏輯，例如點擊按鈕觸發消息等
-    });
-  </script>
-  <h1>End</h1>
-</body>
-</html>
- -->
- <!DOCTYPE html>
-<html>
-<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Line Bot Chat</title>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
     <h1>Line Bot Chat</h1>
-    <iframe src="https://liff.line.me/2001879251-zOk9bLB8" width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
+
+    <div id="liffContainer"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeLiff();
+        });
+
+        function initializeLiff() {
+            liff.init({
+                liffId: 'https://liff.line.me/1645278921-kWRPP32q' // 請替換為您的 LIFF ID
+            }).then(() => {
+                if (liff.isLoggedIn()) {
+                    initializeApp();
+                } else {
+                    liff.login();
+                }
+            }).catch((err) => {
+                console.error('LIFF initialization failed', err);
+            });
+        }
+
+        function initializeApp() {
+            // 在這裡加載 Line Bot 的聊天界面
+            const chatContainer = document.getElementById('liffContainer');
+            liff.getProfile().then(profile => {
+                chatContainer.innerHTML = `<div>Hello ${profile.displayName}!</div>`;
+            }).catch(err => {
+                console.error('Error getting profile:', err);
+            });
+        }
+    </script>
 </body>
 </html>
