@@ -2,16 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIFF with Line Bot</title>
-    <!-- 引入 LIFF SDK -->
-    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <title>Line Bot Webpage</title>
 </head>
 <body>
-    <h1>LIFF with Line Bot</h1>
-    <button id="openChatButton">Open Line Bot Chats</button>
+    <h1>機器人</h1>
 
-    <script src="chatbot.js"></script>
+    <form id="messageForm">
+        <label for="message">Enter Message:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the user's message
+            var userMessage = document.getElementById('message').value;
+
+            // Send the message to Line Bot (replace with your Line Bot API endpoint)
+            var apiUrl = 'YOUR_LINE_BOT_API_ENDPOINT'; // Replace with your Line Bot API endpoint
+            var requestData = {
+                message: userMessage
+            };
+
+            // Assuming you use Fetch API for the HTTP request
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the response from Line Bot
+                document.getElementById('response').innerText = 'Bot Response: ' + data.message;
+            })
+            .catch(error => {
+                console.error('Error sending message to Line Bot:', error);
+            });
+        });
+    </script>
 </body>
 </html>
