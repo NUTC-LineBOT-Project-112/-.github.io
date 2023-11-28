@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h1>機器人</h1>
+    <h1>Line Bot</h1>
 
     <div id="dialogue"></div>
 
@@ -31,7 +31,7 @@
             event.preventDefault();
 
             // Get the user's message
-            var userMessage = document.getElementById('message').value;
+            var userMessage = event.target.elements.message.value;
 
             // Display user's message in the dialogue
             displayMessage('User', userMessage);
@@ -60,7 +60,7 @@
             });
 
             // Clear the input field
-            document.getElementById('message').value = '';
+            event.target.elements.message.value = '';
         });
 
         function displayMessage(sender, message) {
