@@ -28,7 +28,7 @@ function initializeApp() {
     document.getElementById('openChatButton').addEventListener('click', function () {
         // 使用 liff.openWindow 打開 Line Bot 聊天畫面
         liff.openWindow({
-            url: 'line://app/2001096304' // 替換為您的 Line Bot ID
+            url: 'line://app/1645278921-kWRPP32q' // 替換為您的 Line Bot ID
         });
     });
 }
